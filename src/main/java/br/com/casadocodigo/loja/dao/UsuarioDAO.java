@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,7 +30,13 @@ public class UsuarioDAO implements UserDetailsService{
 		return usuarios.get(0);
 	}
 
+	@Transactional
 	public void gravar(Usuario usuario) {
 		manager.persist(usuario);
+	}
+
+	public List<Usuario> listarUsuarios() {
+		List<Usuario> usuarios = manager.createQuery("select u from Usuario u Order by u.nome", Usuario.class).getResultList();
+		return usuarios;
 	}
 }

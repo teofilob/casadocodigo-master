@@ -7,6 +7,8 @@ import br.com.casadocodigo.loja.models.TipoPreco;
 
 public class PrecoDto {
 	
+	public PrecoDto() {}
+	
 	public PrecoDto( Preco p ) {
 		this.tipo = p.getTipo();
 		this.valor = p.getValor();

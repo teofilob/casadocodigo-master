@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +24,9 @@ public class Usuario implements UserDetails {
 	private String email;
 	private String senha;
 	private String nome;
+	
+	@Transient
+	private String reSenha; 
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "Usuario_Role",
@@ -96,5 +100,13 @@ public class Usuario implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
+
+		
+	public String getReSenha() {
+		return reSenha;
+	}
 	
+	public void setReSenha(String reSenha) {
+		this.reSenha = reSenha;
+	}
 }

@@ -1,24 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
-
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<meta charset="UTF-8">
+<title>Livros de Java, Android, iPhone, Ruby, PHP e muito mais - Casa do Código</title>
 <c:url value="/resources/css" var="cssPath" />
 <link rel="stylesheet" href="${cssPath}/bootstrap.min.css" />
 <link rel="stylesheet" href="${cssPath}/bootstrap-theme.min.css" />
-
-<title>Livros de Java, Android, iPhone, Ruby, PHP e muito mais - Casa do Código</title>
 </head>
-<body>
-
+<body> 
 	<nav class="navbar navbar-inverse">
 	  <div class="container">
 	    <div class="navbar-header">
@@ -34,7 +30,7 @@
 	      <ul class="nav navbar-nav">
 	        <li class="nav-item"><a href="${s:mvcUrl('PC#listar').build()}">Lista de Produtos</a></li>
 	        <li class="nav-item"><a href="${s:mvcUrl('PC#form').build()}">Cadastro de Produtos</a></li>
-	        <li class="nav-item"><a href="../usuarios/listar">Usuarios</a></li>
+	        
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 	      	 <li class="nav-item">
@@ -50,28 +46,50 @@
 	    </div><!-- /.navbar-collapse -->
 	  </div>
 	</nav>
-
-	<div class="container">
-		<h1>Lista de Produtos</h1>
-		<p> ${sucesso} </p>
-		<p> ${falha} </p>
 	
-		<table class="table table-bordered table-striped table-hover">
-			<tr>
-				<th>Título</th>
-				<th>Descrição</th>
-				<th>Preços</th> 
-				<th>Páginas</th>
-			</tr>
-			<c:forEach items="${produtos }" var="produto">
-				<tr>
-					<td><a href="${s:mvcUrl('PC#detalhe').arg(0, produto.id).build() }">${produto.titulo }</a> </td>
-					<td>${produto.descricao }</td>
-					<td>${produto.precos }</td>
-					<td>${produto.paginas }</td>
-				</tr>
-			</c:forEach>
-		</table>
+	<div class="container">
+		<h1>Cadastro de Usuario</h1>
+		<form:form action="${s:mvcUrl('UC#gravar').build() }"  method="post" commandName="usuario" enctype="multipart/form-data">
+			<div class="form-group">
+		        <label>Nome</label>
+		        <form:input path="nome" cssClass="form-control" />
+		        <form:errors path="nome" />
+			</div>
+			
+			<div class="form-group">
+		        <label>e-mail</label>
+		        <form:input path="email" cssClass="form-control" />
+		        <form:errors path="email" />
+			</div>
+			
+			
+			<div class="form-group">
+		        <label>Senha</label>
+		         <form:password path="senha" cssClass="form-control" />
+		         <form:errors path="senha" />
+			</div>
+			
+			<div class="form-group">
+		        <label>Repita a senha</label>
+		        <form:password path="reSenha" cssClass="form-control" />
+	    	    <form:errors path="reSenha" />
+			</div>
+			
+			
+			<div class="form-group">
+				<label>Perfil</label>
+				<form:checkboxes items="${listRoles}" path = "roles" />
+			</div>
+			
+			
+			
+				
+			
+			
+			<button type="submit" class="btn btn-primary">Cadastrar</button>
+		</form:form>
+		
 	</div>
+	
 </body>
 </html>

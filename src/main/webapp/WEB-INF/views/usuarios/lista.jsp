@@ -14,7 +14,6 @@
 <c:url value="/resources/css" var="cssPath" />
 <link rel="stylesheet" href="${cssPath}/bootstrap.min.css" />
 <link rel="stylesheet" href="${cssPath}/bootstrap-theme.min.css" />
-
 <title>Livros de Java, Android, iPhone, Ruby, PHP e muito mais - Casa do Código</title>
 </head>
 <body>
@@ -34,7 +33,8 @@
 	      <ul class="nav navbar-nav">
 	        <li class="nav-item"><a href="${s:mvcUrl('PC#listar').build()}">Lista de Produtos</a></li>
 	        <li class="nav-item"><a href="${s:mvcUrl('PC#form').build()}">Cadastro de Produtos</a></li>
-	        <li class="nav-item"><a href="../usuarios/listar">Usuarios</a></li>
+	        <li class="nav-item"><a href="#">Usuarios</a></li>
+	        
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 	      	 <li class="nav-item">
@@ -56,22 +56,25 @@
 		<p> ${sucesso} </p>
 		<p> ${falha} </p>
 	
+	<div class="row">
+		<div class="btn btn-info"  ><a href="${s:mvcUrl('UC#form').build()}" >Novo Usuario</a></div>
+	</div>	
+	<div class="row">
 		<table class="table table-bordered table-striped table-hover">
 			<tr>
-				<th>Título</th>
-				<th>Descrição</th>
-				<th>Preços</th> 
-				<th>Páginas</th>
+				<th>nome</th>
+				<th>email</th>
+				<th>&nbsp;</th>
 			</tr>
-			<c:forEach items="${produtos }" var="produto">
+			<c:forEach items="${usuarios }" var="user">
 				<tr>
-					<td><a href="${s:mvcUrl('PC#detalhe').arg(0, produto.id).build() }">${produto.titulo }</a> </td>
-					<td>${produto.descricao }</td>
-					<td>${produto.precos }</td>
-					<td>${produto.paginas }</td>
+					<td><a href="${s:mvcUrl('UC#detalhe').arg(0, user.email).build() }">${user.email }</a> </td>
+					<td>${user.nome}</td>
+					<td> <div >+</div> </td>
 				</tr>
 			</c:forEach>
 		</table>
+		</div>
 	</div>
 </body>
 </html>

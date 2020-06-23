@@ -1,8 +1,8 @@
 package br.com.casadocodigo.loja.controllers.dto;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 
 import br.com.casadocodigo.loja.models.Produto;
 
@@ -13,11 +13,11 @@ public class RelatorioProdutosDto {
 	}
 	
 	
-	public RelatorioProdutosDto(Date dataGeracao, Collection<Produto> produtos) {
+	public RelatorioProdutosDto(Calendar dataGeracao, Collection<Produto> produtos) {
 		super();
 		
 		
-		this.dataGeracao = dataGeracao.getTime();
+		this.dataGeracao = dataGeracao.getTimeInMillis();
 		this.quantidade = produtos.size();
 		this.produtos = new ArrayList<ProdutoDto>();
 		produtos.forEach(p ->{
@@ -31,4 +31,35 @@ public class RelatorioProdutosDto {
 	private long dataGeracao;
 	private int quantidade;
 	private Collection<ProdutoDto> produtos;
+	public long getDataGeracao() {
+		return dataGeracao;
+	}
+
+
+	public void setDataGeracao(long dataGeracao) {
+		this.dataGeracao = dataGeracao;
+	}
+
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+
+
+	public Collection<ProdutoDto> getProdutos() {
+		return produtos;
+	}
+
+
+	public void setProdutos(Collection<ProdutoDto> produtos) {
+		this.produtos = produtos;
+	}
+	
+	
+	
 }
