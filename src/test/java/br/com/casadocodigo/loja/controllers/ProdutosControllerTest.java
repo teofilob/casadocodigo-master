@@ -1,12 +1,11 @@
 package br.com.casadocodigo.loja.controllers;
 
-import javax.servlet.Filter;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -31,14 +30,11 @@ public class ProdutosControllerTest {
 	@Autowired
 	private WebApplicationContext wac;
 	
-	@Autowired
-	private Filter springSecurityFilterChain;
-
 	private MockMvc mockMvc;
 	
 	@Before
 	public void setup(){
-	    mockMvc = MockMvcBuilders.webAppContextSetup(wac).addFilter(springSecurityFilterChain).build();
+	    mockMvc = MockMvcBuilders.webAppContextSetup(wac).apply(springSecurity()).build();
 	}	
 	
 	@Test

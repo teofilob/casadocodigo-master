@@ -1,16 +1,28 @@
 ## Ambiente 
 
- Aplicação foi testado com JRE8 e JRE9 no Apache Tomcat 7, 8, 9
+ A aplicação mantém Java 8 e APIs `javax.*`. Use Maven 3.9.x e Tomcat 9 atualizado para compilar e implantar o WAR. Tomcat 7/8 não são mais a referência; Tomcat 10/11 exigem migração para Jakarta.
+
+ As dependências foram atualizadas dentro dessa compatibilidade. Spring 5.3, Spring Security 5.8 e Hibernate 5.6 são linhas legadas sem suporte comunitário; esta atualização não substitui uma futura migração para versões principais suportadas. Consulte `.agente/dependencias.md` para versões, critérios e verificações.
  
 ## MySQL
 
-O projeto usa MySQL e deve existir já o banco `casadocodigo` (sem senha). O JPA foi configurado para dropar e gerar as tables automaticamente ao iniciar (na classe `JPAConfiguration`). Caso queira gerar as tabelas manualmente, abaixo desse README tem os comandos SQL.
+O driver atualizado exige MySQL 8.0 ou superior. O banco `casadocodigo` deve existir. Confira as credenciais em `JPAConfiguration`; há uma senha configurada no código. No perfil `dev`, o Hibernate usa `update`, não recriação das tabelas. O perfil `prod` usa PostgreSQL e ainda está configurado com `create-drop`: revise essa política antes de usar dados persistentes.
 
 ## Compilação
 
  Para compilar immporte o projeto no Eclipse (*Import as Maven Projeto*) ou compile na linha de comando usando Maven:
 
 	mvn clean package
+
+Para executar apenas os testes:
+
+    mvn test
+
+O perfil Spring `test` utiliza H2 em memória e não acessa o MySQL local. Os testes verificam persistência, MVC, login, autorização, CSRF e JSON; não substituem a validação de implantação com MySQL/PostgreSQL e integrações externas.
+
+O pacote gerado é `target/casadocodigo.war`. O build também copia o runner Tomcat 9 para `target/dependency/webapp-runner.jar`. Para execução local, após configurar o banco:
+
+    java -jar target/dependency/webapp-runner.jar --path /casadocodigo target/casadocodigo.war
 
 ## Profile DEV
 

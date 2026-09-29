@@ -53,7 +53,7 @@ public class JPAConfiguration {
 		dataSource.setUsername("root");
 		dataSource.setPassword("123123");
 		dataSource.setUrl("jdbc:mysql://localhost/casadocodigo");
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 		return dataSource;
 	}
 
